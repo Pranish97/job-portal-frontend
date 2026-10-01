@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FormField from "../../Reuseable/FormField";
 import Button from "../../Reuseable/Button";
-import { fetchRoles, userRegister, resetRegisterState } from "../../../store/user-slice/auth-slice/userAuthSlice"; 
+import { fetchRoles, userRegister, resetRegisterState } from "../../../store/user-slice/auth-slice/userAuthSlice";
 
-const empty = { full_name: "", email: "", password: "", confirm: "", role_id: "" };
+const empty = { full_name: "", email: "", password: "", confirm: "", role_id: "", company_name: "" };
 
 export default function RegisterForm() {
   const dispatch = useDispatch();
@@ -14,6 +14,10 @@ export default function RegisterForm() {
     useSelector((s) => s.userAuth);
   const [form, setForm] = useState(empty);
   const [errors, setErrors] = useState({});
+
+  // Company name is only needed when the selected role is Employer.
+  const isEmployer =
+    roles.find((r) => String(r.role_id) === String(form.role_id))?.role_name === "Employer";
 
   useEffect(() => {
     dispatch(fetchRoles());
@@ -33,6 +37,7 @@ export default function RegisterForm() {
     if (form.password.length < 8) e.password = "Use at least 8 characters.";
     if (form.confirm !== form.password) e.confirm = "Passwords do not match.";
     if (!form.role_id) e.role_id = "Choose a role.";
+    if (isEmployer && !form.company_name.trim()) e.company_name = "Enter your company name.";
     return e;
   };
 
@@ -41,8 +46,9 @@ export default function RegisterForm() {
     const found = validate();
     setErrors(found);
     if (Object.keys(found).length) return;
-    const { confirm, ...payload } = form; // confirm is checked here only
-    dispatch(userRegister(payload));
+
+    const { confirm, company_name, ...rest } = form; // confirm is checked here only
+    dispatch(userRegister(isEmployer ? { ...rest, company_name: company_name.trim() } : rest));
   };
 
   return (
@@ -69,6 +75,10 @@ export default function RegisterForm() {
           <p role="alert" className="mt-1 text-sm text-red-700">{errors.role_id || rolesError}</p>
         )}
       </div>
+
+      {isEmployer && (
+        <FormField id="company_name" label="Company name" autoComplete="organization" value={form.company_name} onChange={change} error={errors.company_name} />
+      )}
 
       <FormField id="password" label="Password" type="password" autoComplete="new-password" value={form.password} onChange={change} error={errors.password} />
       <FormField id="confirm" label="Confirm password" type="password" autoComplete="new-password" value={form.confirm} onChange={change} error={errors.confirm} />
