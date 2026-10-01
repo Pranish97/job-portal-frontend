@@ -14,6 +14,9 @@ import EmployerDashboard from "./Pages/Employer/EmployerDashboard";
 import EmployerInternships from "./Pages/Employer/EmployerInternships";
 import EmployerInternshipForm from "./Pages/Employer/EmployerInternshipForm";
 import EmployerApplicants from "./Pages/Employer/EmployerApplicants";
+import AdminDashboard from "./Pages/Admin/AdminDashboard";
+import AdminEmployers from "./Pages/Admin/AdminEmployers";
+import AdminApprovals from "./Pages/Admin/AdminApprovals";
 
 export default function App() {
   return (
@@ -43,6 +46,13 @@ export default function App() {
             <Route path="/employer/internships/new" element={<EmployerInternshipForm />} />
             <Route path="/employer/internships/:id/edit" element={<EmployerInternshipForm />} />
             <Route path="/employer/applicants" element={<EmployerApplicants />} />
+          </Route>
+
+          {/* <Route element={<ProtectedRoute roles={["admin"]} />}> */}
+          <Route>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/employers" element={<AdminEmployers />} />
+            <Route path="/admin/internships" element={<AdminApprovals />} />
           </Route>
         </Route>
       </Routes>
