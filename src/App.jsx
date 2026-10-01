@@ -10,6 +10,10 @@ import StudentDashboard from "./Pages/Student/StudentDashboard";
 import MyApplications from "./Pages/Student/MyApplications";
 import Recommendations from "./Pages/Student/Recommendations";
 import StudentProfile from "./Pages/Student/StudentProfile";
+import EmployerDashboard from "./Pages/Employer/EmployerDashboard";
+import EmployerInternships from "./Pages/Employer/EmployerInternships";
+import EmployerInternshipForm from "./Pages/Employer/EmployerInternshipForm";
+import EmployerApplicants from "./Pages/Employer/EmployerApplicants";
 
 export default function App() {
   return (
@@ -30,6 +34,15 @@ export default function App() {
             <Route path="/student/applications" element={<MyApplications />} />
             <Route path="/student/recommendations" element={<Recommendations />} />
             <Route path="/student/profile" element={<StudentProfile />} />
+          </Route>
+
+          {/* <Route element={<ProtectedRoute roles={["employer"]} />}> */}
+          <Route>
+            <Route path="/employer/dashboard" element={<EmployerDashboard />} />
+            <Route path="/employer/internships" element={<EmployerInternships />} />
+            <Route path="/employer/internships/new" element={<EmployerInternshipForm />} />
+            <Route path="/employer/internships/:id/edit" element={<EmployerInternshipForm />} />
+            <Route path="/employer/applicants" element={<EmployerApplicants />} />
           </Route>
         </Route>
       </Routes>
