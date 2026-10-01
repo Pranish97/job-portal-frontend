@@ -79,13 +79,14 @@ export const userLogin = createAsyncThunk(
 // POST /auth/register  { full_name, email, password, role_id }
 export const userRegister = createAsyncThunk(
   "userAuth/register",
-  async ({ full_name, email, password, role_id }, { rejectWithValue }) => {
+  async ({ full_name, email, password, role_id, company_name }, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${BASE_URL}/auth/register`, {
         full_name,
         email,
         password,
         role_id: Number(role_id),
+        ...(company_name && { company_name }), // only sent for employers
       });
 
       const { success, message } = response.data;

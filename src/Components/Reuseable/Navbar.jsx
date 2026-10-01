@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth";
-import Button from "../../Reuseable/Button";
+import { useAuth } from "../../hooks/useAuth";
+import Button from "./Button";
 
 const links = {
-  guest:    [["/", "Home"], ["/internships", "Internships"], ["/about", "About"]],
+  guest:    [["/", "Home"], ["/internships", "Internships"]],
   student:  [["/student/dashboard", "Dashboard"], ["/internships", "Internships"], ["/student/applications", "My applications"], ["/student/recommendations", "Recommended"]],
   employer: [["/employer/dashboard", "Dashboard"], ["/employer/internships", "My postings"], ["/employer/applicants", "Applicants"]],
   admin:    [["/admin/dashboard", "Dashboard"], ["/admin/employers", "Employers"], ["/admin/internships", "Approvals"]],
