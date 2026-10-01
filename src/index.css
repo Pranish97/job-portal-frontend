@@ -1,1 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --font-display: "Sora", sans-serif;
+  --font-sans: "Source Sans 3", system-ui, sans-serif;
+  --color-ink: #14213d;
+  --color-muted: #5b6478;
+  --color-surface: #f6f8fb;
+  --color-line: #dde3ee;
+  --color-brand: #1d4ed8;
+  --color-brand-dark: #1e3fae;
+  --color-marigold: #f4a300;
+}
+
+body { @apply bg-surface font-sans text-ink; }
+:focus-visible { outline: 3px solid var(--color-marigold); outline-offset: 2px; }
